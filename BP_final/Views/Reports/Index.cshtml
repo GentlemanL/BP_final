@@ -1,0 +1,100 @@
+﻿@model IEnumerable<BP_final.Models.Report>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<script>
+    function check(checkBox) {
+        if (document.getElementById(checkBox).checked) {
+            document.getElementById(checkBox).checked = false;
+            document.getElementById(checkBox).value = false;
+        }
+        else if (!document.getElementById(checkBox).checked) {
+
+            document.getElementById(checkBox).checked = true;
+            document.getElementById(checkBox).value = true;
+        }
+    }
+</script>
+
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th class="col-md-1">
+            @*@Html.DisplayNameFor(model => model.IsChecked)*@
+            Selected
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Graph)
+        </th>
+        @*<th>
+                @Html.DisplayNameFor(model => model.SqlInput)
+            </th>*@
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            @*<td>*@
+                @*@Html.CheckBoxFor(modelItem => item.IsChecked)*@
+                @*@Html.CheckBoxFor(modelItem => item.IsChecked, new { id = item.Name + item.ID })*@
+                @*@Html.CheckBoxFor(modelItem => item.IsChecked, new { @value = false, @id = item.Name + item.ID })*@
+            @*</td>*@
+            <td>
+                <input type="checkbox" @(item.IsChecked ? "Checked" : "")
+                       value="@(item.IsChecked ? "True" : "False")" id="@item.Name@item.ID" onchange="check(@item.Name@item.ID)" />
+            </td>
+            <td>
+                @*<form action="" method="POST">
+                        <label>
+                            @Html.CheckBox("checkedArchive")
+                        </label>
+                    </form>*@
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Graph)
+            </td>
+            @*<td>
+                    @Html.DisplayFor(modelItem => item.SqlInput)
+                </td>*@
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+            </td>
+        </tr>
+    }
+
+
+
+</table>
+<div>
+    @using (Html.BeginForm("", "Reports", FormMethod.Post))
+    {
+        <input type="submit" value="Create Graph" id="btnCreateGraph" class="form-control col-md-3" />
+    }
+</div>
+
+<table class="table">
+
+    <tr>
+        <input type="submit" value="Create All Graphs" id="btnCreateAllGraphs" class="form-control col-md-3" />
+    </tr>
+    <tr>
+        <input type="submit" value="Delete" id="btnDeleteGraph" class="form-control col-md-3" />
+    </tr>
+    <tr>
+        <input type="submit" value="Delete All" id="btnDeleteAllGraphs" class="form-control col-md-3" />
+    </tr>
+</table>
