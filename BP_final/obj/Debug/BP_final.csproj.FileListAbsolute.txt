@@ -53,3 +53,4 @@ D:\BP\BP code\BP_final\BP_final\bin\Microsoft.Owin.Security.Twitter.xml
 D:\BP\BP code\BP_final\BP_final\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
 D:\BP\BP code\BP_final\BP_final\obj\Debug\BP_final.dll
 D:\BP\BP code\BP_final\BP_final\obj\Debug\BP_final.pdb
+D:\BP\BP code\BP_final\BP_final\obj\Debug\BP_final.csprojResolveAssemblyReference.cache

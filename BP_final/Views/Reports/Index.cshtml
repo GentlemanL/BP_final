@@ -6,17 +6,27 @@
 
 <script>
     function check(checkBox) {
-        if (document.getElementById(checkBox).checked) {
-            document.getElementById(checkBox).checked = false;
-            document.getElementById(checkBox).value = false;
-        }
-        else if (!document.getElementById(checkBox).checked) {
+        //if (document.getElementById(checkBox).checked) {
+        //    document.getElementById(checkBox).checked = false;
+        //    document.getElementById(checkBox).value = false;
+        //}
+        //else {
+        //    document.getElementById(checkBox).checked = true;
+        //    document.getElementById(checkBox).value = true;
+        //}
 
-            document.getElementById(checkBox).checked = true;
-            document.getElementById(checkBox).value = true;
+        if ("checkBox:checked")
+        {
+
+            // it is checked
         }
-    }
+    };
+
+
+
 </script>
+
+
 
 
 <h2>Index</h2>
@@ -36,9 +46,18 @@
         <th>
             @Html.DisplayNameFor(model => model.Graph)
         </th>
-        @*<th>
-                @Html.DisplayNameFor(model => model.SqlInput)
-            </th>*@
+        <th>
+            Options
+        </th>
+        <th>
+            Time From
+        </th>
+        <th>
+            Time To
+        </th>
+        <th>
+            Classroom
+        </th>
         <th></th>
     </tr>
 
@@ -73,10 +92,52 @@
                 @Html.ActionLink("Details", "Details", new { id = item.ID }) |
                 @Html.ActionLink("Delete", "Delete", new { id = item.ID })
             </td>
+            <td>
+
+            </td>
+            <td>
+
+            </td>
+            <td>
+                @{
+        List<SelectListItem> listItems = new List<SelectListItem>();
+        listItems.Add(new SelectListItem
+          {
+              Text = "AtlantaPort",
+              Value = "AtlantaPort"
+          });
+        listItems.Add(new SelectListItem
+         {
+             Text = "NewJersyTerminal",
+             Value = "NewJersyTerminal",
+             Selected = true
+         });
+        listItems.Add(new SelectListItem
+         {
+             Text = "AWS",
+             Value = "AWS"
+         });
+                }
+                @*@Html.DropDownListFor(model => model.pac)*@
+                @Html.DropDownListFor(modelItem => item.ID, listItems, new { @class = "form-control" })
+            </td>
         </tr>
     }
-
-
+    @*<div class="form-group">
+            @Html.LabelFor(model => model.Graph, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10 ">
+                @Html.DropDownListFor(model => model.Graph, new SelectList(
+                      new List<Object>{
+                           new { value = "Bar Chart" , text = "Bar Chart"  },
+                           new { value = "Line Chart" , text = "Line Chart" },
+                           new { value = "Pie Chart" , text = "Pie Chart"}
+                        },
+                      "value",
+                      "text",
+             2), new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Graph, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
 
 </table>
 <div>

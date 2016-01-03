@@ -5,8 +5,20 @@
 
 <h2>Index</h2>
 
-@model DotNet.Highcharts.Highcharts
+@*@model BP_final.Models.Graph
 
 <p>My Chart</p>
-@(Model)
+@foreach (DotNet.Highcharts.Highcharts chart in Model.Graphs)
+{
+    @(chart)
+    @(Model)
+}*@
+
+@model BP_final.Models.ChartsModel
+
+@foreach (DotNet.Highcharts.Highcharts chart in Model.Charts)
+{
+    @chart
+    @* do your stuff *@
+}
 
