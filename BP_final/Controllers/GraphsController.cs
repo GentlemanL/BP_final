@@ -69,16 +69,6 @@ namespace BP_final.Controllers
                 graphValues.Add(something);
             }
 
-            //for (int i = 0; i < graphNames.Count(); i++)
-            //{
-            //    object[] o = new object[xColumnNames.Count()];
-            //    for (int j = 0; j < xColumnNames.Count(); j++)
-            //    {
-            //            //o[j] = graph3[j + i * j].SomeValue2 == j + 1 ? graph3[j + i * j].SomeValue3 : 0;
-            //    }    
-            //    graphValues.Add(o);
-            //}
-
             List<Series> graphSeries = new List<Series>();
             int q = 0;
             foreach (var gv in graphValues)
@@ -86,9 +76,6 @@ namespace BP_final.Controllers
                 graphSeries.Add(new Series { Name = graphNames[q], Data = new Data(gv) });
                 q++;
             }
-
-
-
 
             var ySomeValue2 = graph3.Select(i => new object[] { i.SomeValue2 }).Distinct().ToArray(); // value
             var ySomeValue3 = graph3.Select(i => new object[] { i.SomeValue3 }).ToArray(); // value
@@ -141,61 +128,13 @@ namespace BP_final.Controllers
                     }
                 })
                 .SetSeries(graphSeries.ToArray());
-                //.SetSeries(new[]
-                //{
-                //    new Series {Name = "SOMEHTING", Data = new Data(list)}
-                //    //new Series {Name = "SOMEHTING_ELSE", Data = new Data(ySomeValue3)},
-                //});
+
 
             ChartsModel model = new ChartsModel();
             model.Charts = new List<Highcharts>();
 
             model.Charts.Add(chart);
             model.Charts.Add(columnChart);
-
-            //List<Highcharts> loc = new List<Highcharts>();
-            //loc.Add(chart);
-            //loc.Add(columnChart);
-
-            // Line chart function to be
-
-            //var xSomeValue1 = graph.Select(i => i.SomeValue).ToArray(); //year, month, ...
-            //var ySomeValue2 = graph.Select(i => new object[] { i.SomeValue2 }).ToArray(); // value
-            //var ySomeValue3 = graph2.Select(i => new object[] { i.SomeValue2 }).ToArray(); // value
-
-            //var chart = new Highcharts("chart")
-            //    .InitChart(new Chart { DefaultSeriesType = ChartTypes.Line })
-            //    .SetTitle(new Title { Text = "Demo chart" })
-            //    .SetSubtitle(new Subtitle { Text = "Demo subtitle" })
-            //    //x values
-            //    .SetXAxis(new XAxis { Categories = xSomeValue1 })
-            //    //y stuff
-            //    .SetYAxis(new YAxis { Title = new YAxisTitle { Text = "Y axis title" }, Min = 0 })
-            //    .SetTooltip(new Tooltip
-            //    {
-            //        Enabled = true,
-            //        //check what this does
-            //        Formatter = @"function() {return '<b>' + this.series.name + '</b><br/>' + this.x + ': ' + this.y; }"
-            //    })
-            //    //check this 
-            //    .SetPlotOptions(new PlotOptions
-            //    {
-            //        //check this 
-            //        Line = new PlotOptionsLine
-            //        {
-            //            //check this 
-            //            DataLabels = new PlotOptionsLineDataLabels
-            //            {
-            //                Enabled = true
-            //            },
-            //            EnableMouseTracking = false
-            //        }
-            //    })
-            //    .SetSeries(new[]
-            //    {
-            //        new Series {Name = "SOMEHTING", Data = new Data(ySomeValue2)},
-            //        new Series {Name = "SOMEHTING_ELSE", Data = new Data(ySomeValue3)},
-            //    });
 
             return View(model);
         }

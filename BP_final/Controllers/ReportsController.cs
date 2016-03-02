@@ -131,5 +131,18 @@ namespace BP_final.Controllers
             }
             base.Dispose(disposing);
         }
+
+        List<string> values = new List<string>();
+
+        [HttpPost]
+        public ActionResult Submit([Bind(Include = "IsChecked")] Report report)
+        {
+            var something = Request.Form.AllKeys;
+            foreach (var item in something)
+            {
+                values.Add(Request.Form.Get(item));
+            }
+            return RedirectToAction("Index", "Graphs");
+        }
     }
 }

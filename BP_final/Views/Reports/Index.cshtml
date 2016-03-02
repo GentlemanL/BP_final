@@ -1,8 +1,8 @@
 ﻿@model IEnumerable<BP_final.Models.Report>
 
-@{
+@*@{
     ViewBag.Title = "Index";
-}
+}*@
 
 <script>
     function check(checkBox) {
@@ -21,9 +21,6 @@
             // it is checked
         }
     };
-
-
-
 </script>
 
 
@@ -34,6 +31,8 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
+@using (Html.BeginForm("Submit", "Reports", FormMethod.Post))
+{
 <table class="table">
     <tr>
         <th class="col-md-1">
@@ -50,10 +49,10 @@
             Options
         </th>
         <th>
-            Time From
+            From
         </th>
         <th>
-            Time To
+            To
         </th>
         <th>
             Classroom
@@ -64,39 +63,27 @@
     @foreach (var item in Model)
     {
         <tr>
-            @*<td>*@
-                @*@Html.CheckBoxFor(modelItem => item.IsChecked)*@
-                @*@Html.CheckBoxFor(modelItem => item.IsChecked, new { id = item.Name + item.ID })*@
-                @*@Html.CheckBoxFor(modelItem => item.IsChecked, new { @value = false, @id = item.Name + item.ID })*@
-            @*</td>*@
             <td>
                 <input type="checkbox" @(item.IsChecked ? "Checked" : "")
-                       value="@(item.IsChecked ? "True" : "False")" id="@item.Name@item.ID" onchange="check(@item.Name@item.ID)" />
+                       value="@(item.IsChecked ? "True" : "False")" id="@("checkBox" + item.ID)" name="@("checkBox" + item.ID)" onchange="check(@item.ID)" />
+                @*@Html.CheckBox(item.Name, item.IsChecked ? true : false)*@
             </td>
             <td>
-                @*<form action="" method="POST">
-                        <label>
-                            @Html.CheckBox("checkedArchive")
-                        </label>
-                    </form>*@
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Graph)
             </td>
-            @*<td>
-                    @Html.DisplayFor(modelItem => item.SqlInput)
-                </td>*@
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
                 @Html.ActionLink("Details", "Details", new { id = item.ID }) |
                 @Html.ActionLink("Delete", "Delete", new { id = item.ID })
             </td>
             <td>
-
+                <input id="@("from" + item.ID)" type="datetime-local" min="0" />
             </td>
             <td>
-
+                <input id="@("to" + item.ID)" type="datetime-local" min="0" />
             </td>
             <td>
                 @{
@@ -119,39 +106,31 @@
          });
                 }
                 @*@Html.DropDownListFor(model => model.pac)*@
-                @Html.DropDownListFor(modelItem => item.ID, listItems, new { @class = "form-control" })
+                @*@Html.DropDownListFor(modelItem => item.ID, listItems, new { @class = "form-control" })*@
+                @Html.DropDownList("dropDownList" + item.ID, listItems, new { @class = "form-control" })
+                @*<select name="@("dropDown" + item.Name)" id="@("dropDown" + item.ID)" class=" form-control">
+                    @foreach (var i in listItems)
+                    {
+                        <option value="@i.Value">@i.Text</option>
+                    }
+                </select>*@
             </td>
         </tr>
     }
-    @*<div class="form-group">
-            @Html.LabelFor(model => model.Graph, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10 ">
-                @Html.DropDownListFor(model => model.Graph, new SelectList(
-                      new List<Object>{
-                           new { value = "Bar Chart" , text = "Bar Chart"  },
-                           new { value = "Line Chart" , text = "Line Chart" },
-                           new { value = "Pie Chart" , text = "Pie Chart"}
-                        },
-                      "value",
-                      "text",
-             2), new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.Graph, "", new { @class = "text-danger" })
-            </div>
-        </div>*@
-
 </table>
-<div>
-    @using (Html.BeginForm("", "Reports", FormMethod.Post))
-    {
-        <input type="submit" value="Create Graph" id="btnCreateGraph" class="form-control col-md-3" />
-    }
-</div>
+
+        
+    
 
 <table class="table">
 
     <tr>
-        <input type="submit" value="Create All Graphs" id="btnCreateAllGraphs" class="form-control col-md-3" />
+        <input type="submit" name="btnCreateGraph" value="Create Graph" id="btnCreateGraph" class="form-control col-md-3" />
     </tr>
+    <tr>
+        <input type="submit" name="btnCreateAllGraphs" value="Create All Graphs" id="btnCreateAllGraphs" class="form-control col-md-3" />
+    </tr>
+    
     <tr>
         <input type="submit" value="Delete" id="btnDeleteGraph" class="form-control col-md-3" />
     </tr>
@@ -159,3 +138,4 @@
         <input type="submit" value="Delete All" id="btnDeleteAllGraphs" class="form-control col-md-3" />
     </tr>
 </table>
+}
